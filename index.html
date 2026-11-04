@@ -22,7 +22,7 @@
 .shelf{position:absolute;right:20px;bottom:78px;width:94px;height:56px;border-radius:8px;background:#caa99c;box-shadow:0 5px 0 #b38f83}
 .plant{position:absolute;right:34px;bottom:137px;font-size:32px}
 .char{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);font-size:76px;filter:drop-shadow(0 8px 5px rgba(95,66,65,.12));animation:bob 3s ease-in-out infinite;user-select:none}
-.char2{position:absolute;bottom:50px;left:66%;font-size:55px;animation:bob 3.6s ease-in-out infinite .4s}
+.char img{width:112px;height:112px;object-fit:contain;display:block;filter:drop-shadow(0 8px 5px rgba(95,66,65,.12))}.char2{position:absolute;bottom:50px;left:66%;font-size:55px;animation:bob 3.6s ease-in-out infinite .4s}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 .scene-label{position:absolute;left:14px;bottom:12px;font-size:11px;color:#8f7774;background:rgba(255,255,255,.55);padding:6px 10px;border-radius:12px;backdrop-filter:blur(8px)}
 .glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px}
@@ -42,7 +42,7 @@ input[type=text]{border:1px solid #ead9d9;border-radius:12px;padding:10px;backgr
 <header class="top"><div><div class="eyebrow">MY LITTLE TOWN</div><div class="title">吉伊卡哇专注小镇</div></div><div class="weather"><strong id="weatherIcon">☀️</strong><span id="weatherText">天气待同步</span></div></header>
 <div id="homeView" class="view active">
 <section class="scene" id="scene">
-<div class="sun" id="sun"></div><div class="window"></div><div class="cloud" id="cloud">☁️</div><div class="floor"></div><div class="rug"></div><div class="shelf"></div><div class="plant">🪴</div><div class="char" id="mainChar">🐰</div><div class="char2" id="sideChar">🐱</div><div class="scene-label" id="sceneLabel">☀️ 小镇 · 白天</div>
+<div class="sun" id="sun"></div><div class="window"></div><div class="cloud" id="cloud">☁️</div><div class="floor"></div><div class="rug"></div><div class="shelf"></div><div class="plant">🪴</div><div class="char" id="mainChar"><img src="a4610dfe5202be32798ac149424803cc.png" alt="小镇伙伴"></div><div class="char2" id="sideChar">🐱</div><div class="scene-label" id="sceneLabel">☀️ 小镇 · 白天</div>
 </section>
 <div class="stats">
 <div class="glass stat"><div class="label">今日专注</div><div class="value"><span id="todayMins">0</span><small style="font-size:12px;font-weight:600"> 分钟</small></div><div class="progress"><span id="todayBar" style="width:0%"></span></div></div>
@@ -96,7 +96,7 @@ $('resetBtn').onclick=()=>{running=false;clearInterval(interval);interval=null;r
 $('addTaskBtn').onclick=()=>{let text=prompt('添加一个学习任务：');if(text&&text.trim()){state.tasks.push({id:state.nextTaskId++,text:text.trim(),done:false});save();render()}};
 document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.view).classList.add('active')});
 $('saveSettings').onclick=()=>{let d=Math.max(1,Math.min(180,parseInt($('duration').value)||25));let g=Math.max(1,Math.min(1440,parseInt($('goal').value)||120));state.duration=d;state.goal=g;if(!running)remaining=d*60;save();render();toast('设置已保存')};
-$('outfitBtn').onclick=()=>{state.outfit=(state.outfit+1)%3;let outfits=['🎀','🧢','🧣'];$('mainChar').textContent=state.outfit===0?'🐰':'🐰'+outfits[state.outfit];state.care=['乌萨奇换上了可爱的日常造型！','乌萨奇戴上小帽子啦！','乌萨奇穿上了暖暖围巾！'][state.outfit];save();render();toast('换装成功！')};
+$('outfitBtn').onclick=()=>{state.outfit=(state.outfit+1)%3;let outfits=['🎀','🧢','🧣'];$('mainChar').style.filter=['none','hue-rotate(18deg) saturate(1.12)','hue-rotate(-18deg)'][state.outfit];state.care=['乌萨奇换上了可爱的日常造型！','乌萨奇戴上小帽子啦！','乌萨奇穿上了暖暖围巾！'][state.outfit];save();render();toast('换装成功！')};
 $('bathBtn').onclick=()=>{state.care='🫧 乌萨奇正在泡泡浴，洗得香香的！';save();render();toast('泡泡浴时间～')};
 $('snackBtn').onclick=()=>{if(state.coins<3){toast('需要 3 枚金币购买零食');return}state.coins-=3;state.care='🍡 乌萨奇吃到了喜欢的小零食！';save();render();toast('零食喂食成功！')};
 function updateScene(){let d=new Date(),h=d.getHours(),m=d.getMinutes();$('weatherText').textContent=$('weatherText').dataset.custom||'天气待同步';let label,sky1,sky2,emoji;if(h>=6&&h<10){label='清晨';sky1='#f8ded9';sky2='#e7e8f3';emoji='🌤️'}else if(h>=10&&h<16){label='白天';sky1='#cce7f6';sky2='#e8f0f7';emoji='☀️'}else if(h>=16&&h<19){label='傍晚';sky1='#f5c6b9';sky2='#e7c8dc';emoji='🌇'}else{label='夜晚';sky1='#9ca9c8';sky2='#d2c9df';emoji='🌙'}$('scene').style.setProperty('--sky1',sky1);$('scene').style.setProperty('--sky2',sky2);$('sceneLabel').textContent=`${emoji} 小镇 · ${label} ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;$('sun').style.display=(h>=6&&h<19)?'block':'none';$('sun').style.background=h>=16&&h<19?'#ffd2a8':'#fff4c8';$('cloud').textContent=h>=19||h<6?'✨':'☁️';if(h>=19||h<6){$('scene').style.filter='saturate(.85)';$('sun').style.display='none'}else{$('scene').style.filter='none'}}
