@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5e9e6">
+<title>吉伊卡哇专注小镇</title>
+<style>
+:root{--ink:#5c4b4b;--muted:#9c8584;--pink:#dba2ad;--cream:#f7efeb;--glass:rgba(255,255,255,.68);--line:rgba(255,255,255,.8);--shadow:0 12px 32px rgba(105,76,73,.12)}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC",sans-serif;color:var(--ink);background:linear-gradient(180deg,#f8e9e7,#e9eaf3 60%,#f7eee7);min-height:100vh}
+.app{max-width:520px;margin:auto;min-height:100vh;padding:calc(14px + env(safe-area-inset-top)) 16px calc(90px + env(safe-area-inset-bottom));position:relative;overflow:hidden}
+.bg-glow{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 18% 12%,rgba(255,255,255,.7),transparent 35%),radial-gradient(circle at 85% 55%,rgba(255,221,224,.35),transparent 32%);z-index:-1}
+.top{display:flex;justify-content:space-between;align-items:center;margin:4px 2px 14px}.eyebrow{font-size:10px;letter-spacing:2px;color:#a58d8b}.title{font-size:23px;font-weight:800;margin-top:3px}.weather{border:1px solid var(--line);background:var(--glass);backdrop-filter:blur(18px);border-radius:18px;padding:9px 12px;text-align:right;box-shadow:var(--shadow);font-size:12px}.weather strong{display:block;font-size:17px}
+.scene{height:260px;border-radius:27px;position:relative;overflow:hidden;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.75);background:linear-gradient(180deg,var(--sky1,#f9dcd9),var(--sky2,#e9e8f3) 70%,#e5d9d0);transition:background 1s}
+.scene:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,.32),transparent 40%),radial-gradient(circle at 75% 15%,rgba(255,255,255,.6),transparent 22%);pointer-events:none}
+.sun{position:absolute;top:28px;right:42px;width:48px;height:48px;border-radius:50%;background:#fff4c8;box-shadow:0 0 36px 15px rgba(255,238,190,.45)}
+.window{position:absolute;left:20px;top:28px;width:104px;height:112px;border:7px solid rgba(255,255,255,.75);border-radius:15px;background:linear-gradient(180deg,rgba(183,218,239,.55),rgba(255,255,255,.35));box-shadow:inset 0 0 0 2px rgba(198,168,167,.16)}
+.window:before{content:"";position:absolute;left:50%;top:0;bottom:0;width:5px;background:rgba(255,255,255,.75)}.window:after{content:"";position:absolute;left:0;right:0;top:50%;height:5px;background:rgba(255,255,255,.75)}
+.cloud{position:absolute;top:35px;left:150px;font-size:28px;opacity:.8}
+.floor{position:absolute;bottom:0;left:0;right:0;height:78px;background:linear-gradient(180deg,#e8d4cb,#d9c1b7);border-top:3px solid rgba(255,255,255,.5)}
+.rug{position:absolute;bottom:22px;left:28%;width:48%;height:42px;border-radius:50%;background:rgba(255,255,255,.38);border:2px solid rgba(255,255,255,.45)}
+.shelf{position:absolute;right:20px;bottom:78px;width:94px;height:56px;border-radius:8px;background:#caa99c;box-shadow:0 5px 0 #b38f83}
+.plant{position:absolute;right:34px;bottom:137px;font-size:32px}
+.char{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);font-size:76px;filter:drop-shadow(0 8px 5px rgba(95,66,65,.12));animation:bob 3s ease-in-out infinite;user-select:none}
+.char2{position:absolute;bottom:50px;left:66%;font-size:55px;animation:bob 3.6s ease-in-out infinite .4s}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.scene-label{position:absolute;left:14px;bottom:12px;font-size:11px;color:#8f7774;background:rgba(255,255,255,.55);padding:6px 10px;border-radius:12px;backdrop-filter:blur(8px)}
+.glass{background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:22px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.stat{padding:14px}.stat .label{font-size:11px;color:var(--muted)}.stat .value{font-size:22px;font-weight:800;margin-top:5px}.progress{height:7px;background:#ead9d9;border-radius:9px;overflow:hidden;margin-top:9px}.progress span{display:block;height:100%;background:linear-gradient(90deg,#d99daa,#efc7c5);border-radius:9px;transition:width .3s}
+.panel{padding:16px;margin-top:12px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.section-title{font-weight:800;font-size:15px}.sub{font-size:11px;color:var(--muted)}
+button{border:0;font:inherit;cursor:pointer;color:var(--ink);-webkit-tap-highlight-color:transparent}.primary{background:linear-gradient(135deg,#d99eaa,#e9bfc4);color:#fff;border-radius:16px;padding:13px 18px;font-weight:700;box-shadow:0 7px 18px rgba(197,135,149,.22)}.secondary{background:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.9);border-radius:14px;padding:10px 13px;font-weight:650}.timer{text-align:center;padding:18px 12px}.timer-num{font-size:42px;font-weight:800;letter-spacing:1px;font-variant-numeric:tabular-nums;margin:8px 0}.timer-actions{display:flex;justify-content:center;gap:9px;margin-top:10px}.task{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid rgba(180,150,150,.16)}.task:last-child{border-bottom:0}.task input{accent-color:#d69ca8;width:18px;height:18px}.task .tasktext{flex:1;font-size:13px}.task.done .tasktext{text-decoration:line-through;color:#ad9b9a}.reward{font-size:12px;color:#b08b58;white-space:nowrap}
+.nav{position:fixed;bottom:calc(12px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(488px,calc(100% - 28px));display:flex;gap:5px;padding:7px;border-radius:22px;background:rgba(255,255,255,.76);backdrop-filter:blur(22px);border:1px solid white;box-shadow:0 10px 30px rgba(100,70,70,.14);z-index:5}.nav button{flex:1;background:transparent;border-radius:15px;padding:9px 4px;font-size:11px;color:#9a8584}.nav button.active{background:#f3dfe1;color:#8d626b;font-weight:800}.nav span{display:block;font-size:18px;margin-bottom:2px}
+.view{display:none}.view.active{display:block}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.tile{padding:12px 8px;text-align:center;min-height:105px}.tile .emoji{font-size:32px}.tile .name{font-size:12px;font-weight:700;margin-top:5px}.tile .desc{font-size:10px;color:var(--muted);margin-top:3px}.locked{filter:grayscale(1);opacity:.55}.tag{display:inline-block;font-size:10px;background:#f3e4e3;color:#a67a83;padding:4px 7px;border-radius:9px;margin-top:5px}
+.shopitem{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(180,150,150,.16)}.shopitem:last-child{border:0}.shopitem .emoji{font-size:30px}.shopitem .info{flex:1}.shopitem strong{font-size:13px}.shopitem small{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.toast{position:fixed;left:50%;top:calc(18px + env(safe-area-inset-top));transform:translateX(-50%);background:rgba(87,68,68,.88);color:white;padding:10px 16px;border-radius:14px;font-size:12px;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}.toast.show{opacity:1}
+input[type=text]{border:1px solid #ead9d9;border-radius:12px;padding:10px;background:rgba(255,255,255,.7);font:inherit;min-width:0}
+@media(min-width:430px){.scene{height:290px}}
+</style>
+</head>
+<body>
+<div class="bg-glow"></div><div class="app">
+<header class="top"><div><div class="eyebrow">MY LITTLE TOWN</div><div class="title">吉伊卡哇专注小镇</div></div><div class="weather"><strong id="weatherIcon">☀️</strong><span id="weatherText">天气待同步</span></div></header>
+<div id="homeView" class="view active">
+<section class="scene" id="scene">
+<div class="sun" id="sun"></div><div class="window"></div><div class="cloud" id="cloud">☁️</div><div class="floor"></div><div class="rug"></div><div class="shelf"></div><div class="plant">🪴</div><div class="char" id="mainChar">🐰</div><div class="char2" id="sideChar">🐱</div><div class="scene-label" id="sceneLabel">☀️ 小镇 · 白天</div>
+</section>
+<div class="stats">
+<div class="glass stat"><div class="label">今日专注</div><div class="value"><span id="todayMins">0</span><small style="font-size:12px;font-weight:600"> 分钟</small></div><div class="progress"><span id="todayBar" style="width:0%"></span></div></div>
+<div class="glass stat"><div class="label">小镇金币</div><div class="value">🪙 <span id="coins">0</span></div><div class="sub" style="margin-top:7px">专注每 5 分钟获得 1 枚</div></div>
+</div>
+<section class="glass panel timer"><div class="row"><span class="section-title">专注时光</span><span class="sub" id="timerMode">准备开始</span></div><div class="timer-num" id="timerDisplay">25:00</div><div class="sub" id="timerHint">开始专注，陪小镇一起成长</div><div class="timer-actions"><button class="primary" id="startBtn">开始专注</button><button class="secondary" id="resetBtn">重置</button></div></section>
+<section class="glass panel"><div class="row"><div><div class="section-title">今日任务</div><div class="sub">完成任务，获得额外奖励</div></div><button class="secondary" id="addTaskBtn">＋ 添加</button></div><div id="taskList"></div></section>
+<section class="glass panel"><div class="row"><div><div class="section-title">成长小目标</div><div class="sub">累计专注解锁新伙伴</div></div><span class="tag" id="collectionCount">1 / 6</span></div><div class="progress"><span id="unlockBar" style="width:0%"></span></div><div class="sub" style="margin-top:8px" id="nextUnlock">再专注 60 分钟解锁新伙伴</div></section>
+</div>
+<div id="collectionView" class="view"><section class="glass panel"><div class="row"><div><div class="section-title">角色图鉴</div><div class="sub">用专注时间收集小镇伙伴</div></div><span class="tag" id="collectionCount2">1 / 6</span></div><div class="grid" id="characterGrid" style="margin-top:14px"></div></section></div>
+<div id="roomView" class="view"><section class="glass panel"><div class="row"><div><div class="section-title">小屋布置</div><div class="sub">购买装饰，让小屋更温馨</div></div><span class="tag">🪙 <b id="roomCoins">0</b></span></div><div class="grid" id="ownedGrid" style="margin-top:14px"></div><div class="section-title" style="margin-top:20px">装饰商店</div><div id="shopList"></div></section></div>
+<div id="careView" class="view"><section class="glass panel"><div class="section-title">角色照料</div><div class="sub" style="margin-top:4px">换装、洗澡和日常互动</div><div class="grid" style="margin-top:14px"><button class="glass tile" id="outfitBtn"><div class="emoji">👗</div><div class="name">换衣服</div><div class="desc">切换日常造型</div></button><button class="glass tile" id="bathBtn"><div class="emoji">🛁</div><div class="name">洗澡</div><div class="desc">泡泡浴互动</div></button><button class="glass tile" id="snackBtn"><div class="emoji">🍡</div><div class="name">喂零食</div><div class="desc">消耗金币</div></button></div><div class="glass panel" style="margin-top:14px"><div class="section-title">伙伴状态</div><div id="careStatus" style="font-size:13px;margin-top:9px">乌萨奇今天也在陪你学习！</div></div></section></div>
+<div id="settingsView" class="view"><section class="glass panel"><div class="section-title">专注设置</div><div class="sub" style="margin:5px 0 12px">自定义每轮专注时长</div><div class="row"><label for="duration">专注分钟</label><input id="duration" type="number" min="1" max="180" value="25" style="width:90px"></div><div class="row" style="margin-top:14px"><label for="goal">每日目标（分钟）</label><input id="goal" type="number" min="1" max="1440" value="120" style="width:90px"></div><button class="primary" id="saveSettings" style="width:100%;margin-top:14px">保存设置</button><div class="sub" style="margin-top:12px;line-height:1.6">提示：这是网页原型。网页无法在 iPhone 上自动识别你正在使用哪个其他 App；切换到后台或锁屏时，计时也可能受系统限制。可先用开始/暂停计时记录专注。</div><div class="section-title" style="margin-top:20px">天气同步</div><div class="sub" style="margin:5px 0 10px">允许定位后尝试获取当地天气（需要网络与定位权限）</div><button class="secondary" id="weatherBtn">同步天气</button><div class="sub" id="weatherStatus" style="margin-top:8px"></div></section></div>
+</div>
+<nav class="nav"><button class="active" data-view="homeView"><span>🏡</span>小镇</button><button data-view="collectionView"><span>🎀</span>图鉴</button><button data-view="roomView"><span>🪑</span>布置</button><button data-view="careView"><span>🫧</span>照料</button><button data-view="settingsView"><span>⚙️</span>设置</button></nav>
+<div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const characters=[
+{id:'usagi',name:'乌萨奇',emoji:'🐰',need:0,desc:'初始伙伴'},
+{id:'hachi',name:'小八',emoji:'🐱',need:60,desc:'累计专注 1 小时'},
+{id:'chiikawa',name:'吉伊卡哇',emoji:'🐻',need:180,desc:'累计专注 3 小时'},
+{id:'momonga',name:'飞鼠',emoji:'🐿️',need:360,desc:'累计专注 6 小时'},
+{id:'kurimanju',name:'栗子馒头',emoji:'🌰',need:600,desc:'累计专注 10 小时'},
+{id:'shisa',name:'狮萨',emoji:'🦁',need:900,desc:'累计专注 15 小时'}
+];
+const items=[
+{id:'plant',name:'窗边绿植',emoji:'🪴',cost:12,desc:'给房间添一点生机'},
+{id:'lamp',name:'暖光台灯',emoji:'💡',cost:20,desc:'夜晚亮起温柔灯光'},
+{id:'cushion',name:'软软抱枕',emoji:'🧸',cost:25,desc:'休息角落更舒服'},
+{id:'books',name:'小书架',emoji:'📚',cost:30,desc:'学习主题装饰'},
+{id:'flowers',name:'花束摆件',emoji:'💐',cost:35,desc:'春日氛围装饰'},
+{id:'stool',name:'小圆凳',emoji:'🪑',cost:40,desc:'可爱的家具'}
+];
+const defaultState={totalSeconds:0,todaySeconds:0,todayKey:'',coins:0,unlocked:['usagi'],owned:[],tasks:[{id:1,text:'完成今天的学习计划',done:false},{id:2,text:'复习一小节内容',done:false}],nextTaskId:3,duration:25,goal:120,outfit:0,care:'乌萨奇今天也在陪你学习！'};
+let state=load();let remaining=state.duration*60;let running=false;let interval=null;let lastTick=Date.now();let sessionSeconds=0;
+function load(){try{return {...defaultState,...JSON.parse(localStorage.getItem('chiikawaFocusTown')||'{}')}}catch(e){return {...defaultState}}}
+function save(){localStorage.setItem('chiikawaFocusTown',JSON.stringify(state))}
+function dayKey(){const d=new Date();return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`}
+function ensureDay(){if(state.todayKey!==dayKey()){state.todayKey=dayKey();state.todaySeconds=0;save()}}
+function fmt(sec){sec=Math.max(0,sec|0);return `${String(Math.floor(sec/60)).padStart(2,'0')}:${String(sec%60).padStart(2,'0')}`}
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1900)}
+function render(){ensureDay();$('todayMins').textContent=Math.floor(state.todaySeconds/60);$('todayBar').style.width=Math.min(100,state.todaySeconds/60/state.goal*100)+'%';$('coins').textContent=state.coins;$('roomCoins').textContent=state.coins;$('timerDisplay').textContent=fmt(remaining);$('timerMode').textContent=running?'正在专注':'准备开始';$('timerHint').textContent=running?'专注中，金币正在累积 ✨':'开始专注，陪小镇一起成长';$('startBtn').textContent=running?'暂停专注':'开始专注';let next=characters.find(c=>!state.unlocked.includes(c.id));$('collectionCount').textContent=`${state.unlocked.length} / ${characters.length}`;$('collectionCount2').textContent=`${state.unlocked.length} / ${characters.length}`;if(next){let left=Math.max(0,next.need-Math.floor(state.totalSeconds/60));$('nextUnlock').textContent=`再专注 ${left} 分钟解锁${next.name}`;$('unlockBar').style.width=Math.min(100,(state.totalSeconds/60)/next.need*100)+'%'}else{$('nextUnlock').textContent='所有伙伴都已解锁！';$('unlockBar').style.width='100%'}renderTasks();renderCollection();renderRoom();$('careStatus').textContent=state.care}
+function renderTasks(){let el=$('taskList');el.innerHTML='';state.tasks.forEach(t=>{let row=document.createElement('label');row.className='task'+(t.done?' done':'');row.innerHTML=`<input type="checkbox" ${t.done?'checked':''}><span class="tasktext"></span><span class="reward">${t.done?'已完成':'＋5🪙'}</span>`;row.querySelector('.tasktext').textContent=t.text;row.querySelector('input').onchange=e=>{t.done=e.target.checked;if(t.done){state.coins+=5;toast('任务完成！获得 5 枚金币 ✨')}save();render()};el.appendChild(row)})}
+function renderCollection(){let el=$('characterGrid');el.innerHTML='';characters.forEach(c=>{let unlocked=state.unlocked.includes(c.id);let div=document.createElement('div');div.className='glass tile'+(unlocked?'':' locked');div.innerHTML=`<div class="emoji">${unlocked?c.emoji:'❔'}</div><div class="name">${unlocked?c.name:'神秘伙伴'}</div><div class="desc">${unlocked?'已解锁':c.desc}</div>`;el.appendChild(div)})}
+function renderRoom(){let own=$('ownedGrid');own.innerHTML='';if(!state.owned.length){own.innerHTML='<div class="sub" style="grid-column:1/-1">还没有装饰，去商店挑选第一件吧～</div>'}state.owned.forEach(id=>{let it=items.find(x=>x.id===id);if(!it)return;let d=document.createElement('div');d.className='glass tile';d.innerHTML=`<div class="emoji">${it.emoji}</div><div class="name">${it.name}</div><div class="desc">已拥有</div>`;own.appendChild(d)});let shop=$('shopList');shop.innerHTML='';items.filter(i=>!state.owned.includes(i.id)).forEach(it=>{let row=document.createElement('div');row.className='shopitem';row.innerHTML=`<div class="emoji">${it.emoji}</div><div class="info"><strong>${it.name}</strong><small>${it.desc}</small></div><button class="secondary">🪙 ${it.cost}</button>`;row.querySelector('button').onclick=()=>{if(state.coins<it.cost){toast('金币不够，继续专注吧！');return}state.coins-=it.cost;state.owned.push(it.id);save();render();toast(`获得装饰：${it.name}`)};shop.appendChild(row)})}
+function unlockCheck(){let newly=[];characters.forEach(c=>{if(!state.unlocked.includes(c.id)&&state.totalSeconds/60>=c.need){state.unlocked.push(c.id);newly.push(c.name)}});if(newly.length)toast('新伙伴解锁：'+newly.join('、')+' 🎉')}
+function tick(){if(!running)return;let now=Date.now();let delta=Math.max(0,Math.floor((now-lastTick)/1000));lastTick=now;if(delta>0){ensureDay();state.totalSeconds+=delta;state.todaySeconds+=delta;sessionSeconds+=delta;let earned=Math.floor(sessionSeconds/300);if(earned>0){state.coins+=earned;sessionSeconds%=300}remaining=Math.max(0,remaining-delta);unlockCheck();save();render();if(remaining<=0){running=false;clearInterval(interval);interval=null;state.coins+=5;toast('专注完成！奖励 5 枚金币 🎉');remaining=state.duration*60;save();render()}}}
+$('startBtn').onclick=()=>{if(running){running=false;clearInterval(interval);interval=null;toast('专注已暂停')}else{running=true;lastTick=Date.now();interval=setInterval(tick,1000);toast('开始专注，和伙伴一起加油！')}render()};
+$('resetBtn').onclick=()=>{running=false;clearInterval(interval);interval=null;remaining=state.duration*60;sessionSeconds=0;render();toast('计时已重置')};
+$('addTaskBtn').onclick=()=>{let text=prompt('添加一个学习任务：');if(text&&text.trim()){state.tasks.push({id:state.nextTaskId++,text:text.trim(),done:false});save();render()}};
+document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));$(b.dataset.view).classList.add('active')});
+$('saveSettings').onclick=()=>{let d=Math.max(1,Math.min(180,parseInt($('duration').value)||25));let g=Math.max(1,Math.min(1440,parseInt($('goal').value)||120));state.duration=d;state.goal=g;if(!running)remaining=d*60;save();render();toast('设置已保存')};
+$('outfitBtn').onclick=()=>{state.outfit=(state.outfit+1)%3;let outfits=['🎀','🧢','🧣'];$('mainChar').textContent=state.outfit===0?'🐰':'🐰'+outfits[state.outfit];state.care=['乌萨奇换上了可爱的日常造型！','乌萨奇戴上小帽子啦！','乌萨奇穿上了暖暖围巾！'][state.outfit];save();render();toast('换装成功！')};
+$('bathBtn').onclick=()=>{state.care='🫧 乌萨奇正在泡泡浴，洗得香香的！';save();render();toast('泡泡浴时间～')};
+$('snackBtn').onclick=()=>{if(state.coins<3){toast('需要 3 枚金币购买零食');return}state.coins-=3;state.care='🍡 乌萨奇吃到了喜欢的小零食！';save();render();toast('零食喂食成功！')};
+function updateScene(){let d=new Date(),h=d.getHours(),m=d.getMinutes();$('weatherText').textContent=$('weatherText').dataset.custom||'天气待同步';let label,sky1,sky2,emoji;if(h>=6&&h<10){label='清晨';sky1='#f8ded9';sky2='#e7e8f3';emoji='🌤️'}else if(h>=10&&h<16){label='白天';sky1='#cce7f6';sky2='#e8f0f7';emoji='☀️'}else if(h>=16&&h<19){label='傍晚';sky1='#f5c6b9';sky2='#e7c8dc';emoji='🌇'}else{label='夜晚';sky1='#9ca9c8';sky2='#d2c9df';emoji='🌙'}$('scene').style.setProperty('--sky1',sky1);$('scene').style.setProperty('--sky2',sky2);$('sceneLabel').textContent=`${emoji} 小镇 · ${label} ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;$('sun').style.display=(h>=6&&h<19)?'block':'none';$('sun').style.background=h>=16&&h<19?'#ffd2a8':'#fff4c8';$('cloud').textContent=h>=19||h<6?'✨':'☁️';if(h>=19||h<6){$('scene').style.filter='saturate(.85)';$('sun').style.display='none'}else{$('scene').style.filter='none'}}
+async function syncWeather(){ $('weatherStatus').textContent='正在获取天气…';if(!navigator.geolocation){$('weatherStatus').textContent='此浏览器不支持定位';return}navigator.geolocation.getCurrentPosition(async pos=>{try{let {latitude,longitude}=pos.coords;let r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,weather_code&timezone=auto`);let j=await r.json();let code=j.current.weather_code,temp=Math.round(j.current.temperature_2m);let map=code===0?['☀️','晴朗']:code<=3?['☁️','多云']:[45,48].includes(code)?['🌫️','雾']:code>=51&&code<=67?['🌧️','下雨']:code>=71&&code<=77?['❄️','下雪']:code>=95?['⛈️','雷雨']:['🌤️','天气'];$('weatherIcon').textContent=map[0];$('weatherText').dataset.custom=`${map[1]} ${temp}°`; $('weatherText').textContent=$('weatherText').dataset.custom;$('weatherStatus').textContent='天气已同步';updateScene()}catch(e){$('weatherStatus').textContent='天气获取失败，请稍后重试'}} ,()=>{$('weatherStatus').textContent='定位未授权，可稍后再试'},{enableHighAccuracy:false,timeout:10000})}
+$('weatherBtn').onclick=syncWeather;
+$('duration').value=state.duration;$('goal').value=state.goal;
+ensureDay();render();updateScene();setInterval(updateScene,30000);
+</script>
+</body></html>
